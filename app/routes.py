@@ -47,7 +47,7 @@ def edita(id):
     return render_template('cadastro.html', form=form, book_list=book_list)
 
 
-@app.route('/app/Reserva', methods=['GET', 'POST'])
+@app.route('/app/Emprestimo', methods=['GET', 'POST'])
 def emprestimo():
     book = Book.query.all()
     form = LoadForm()
