@@ -3,7 +3,7 @@ from app import db, bcrypt
 
 class Usuario(db.Model):
 
-    tablename = 'usuario'
+    __tablename__ = 'usuario'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     admin = db.Column(db.Boolean, nullable=False, default=False)
@@ -13,6 +13,11 @@ class Usuario(db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False)
     telefone = db.Column(db.String(50), unique=True, nullable=False)
     data_criacao = db.Column(db.DateTime, nullable=False)
+    reservas = db.relationship(
+        'Reserva',
+        backref='usuario',
+        lazy=True
+    )
 
     @property
     def senha(self):
@@ -25,5 +30,5 @@ class Usuario(db.Model):
     def check_senha(self, senha):
         return bcrypt.check_password_hash(self.senha_hash, senha)
 
-    def repr(self):
-        return f' Usuário: {self.username}, {self.nome} {self.email} {self.telefone} {self.data_criacao}'
+    def __repr__(self):
+        return f' Usuário: {self.username}, {self.nome} {self.email} {self.telefone} {self.data_criacao} {self.reservas}'

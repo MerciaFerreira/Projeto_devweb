@@ -45,7 +45,18 @@ class ServiceUsuario:
                 'message': 'Usuário não está cadastrado'
             }
             return resposta, 404
-        return usuario, 200
+        return usuario
+
+    @staticmethod
+    def get_user_by_username(username):
+        usuario = Usuario.query.filter_by(username=username).first()
+        if not usuario:
+            resposta = {
+                'status': 'falha',
+                'message': 'Usuário não está cadastrado'
+            }
+            return resposta, 404
+        return usuario
 
     @staticmethod
     def update_user(dados):  # patch, put
@@ -84,12 +95,10 @@ class ServiceUsuario:
         }
         return resposta, 404
 
-    @staticmethod
     def save(dados):
         db.session.add(dados)
         db.session.commit()
 
-    @staticmethod
     def delete(dados):
         db.session.delete(dados)
         db.session.commit()

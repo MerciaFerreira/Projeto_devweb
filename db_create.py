@@ -10,9 +10,9 @@ app = create_app('config')
 
 usuarios = [
     {  # 0
-        'username': 'matto96',
-        'nome': 'Matheus',
-        'email': 'matheus@email.com',  # regex email python
+        'username': 'jamille10',
+        'nome': 'Jamille',
+        'email': 'jamille@email.com',  # regex email python
         'senha': '123456',
         'telefone': '88999999999'
     },
@@ -90,7 +90,7 @@ livros = [
 
 reservas = [
     {
-        'username': 'matto96',
+        'username': 'jamille10',
         'isbn': 44444444,
         'data_vencimento': '2020/07/15'
     },
