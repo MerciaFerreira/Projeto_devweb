@@ -1,4 +1,4 @@
-from app import db, bcrypt
+from app import db, ma, bcrypt
 from .Reserva import ReservaSchema
 
 

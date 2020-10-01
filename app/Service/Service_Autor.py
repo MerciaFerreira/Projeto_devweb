@@ -15,8 +15,8 @@ class ServiceAutor:
                 nome=dados['nome'],
                 sobrenome=dados['sobrenome']
             )
-        ServiceAutor.save(novo_autor)
-            return novo_autor    
+            ServiceAutor.save(novo_autor)
+            return novo_autor
 
     @staticmethod
     def get_all_autores():
@@ -29,17 +29,17 @@ class ServiceAutor:
         return autor
 
     @staticmethod
-    def get_autor_by_nome(id):
+    def get_autor_by_nome(nome):
         autores = Autor.query.filter_by(nome=nome).all()
         return autores
 
     @staticmethod
-    def get_autor_by_sobrenome(id):
+    def get_autor_by_sobrenome(sobrenome):
         autores = Autor.query.filter_by(sobrenome=sobrenome).all()
         return autores
 
     @staticmethod
-    def update_autor(dados):
+    def update_autor(id, dados):
         autor = Autor.query.get(id)
         if autor:
             autor.nome = dados['nome']

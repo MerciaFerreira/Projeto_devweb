@@ -1,4 +1,4 @@
-from app import db
+from app import db, ma
 
 
 class Autor(db.Model):
@@ -11,7 +11,7 @@ class Autor(db.Model):
 
     def __repr__(self):
         return f'nome: {self.nome} sobrenome: {self.sobrenome}.'
-        
+
 
 class AutorSchema(ma.Schema):
     class Meta:
