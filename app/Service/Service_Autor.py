@@ -15,22 +15,13 @@ class ServiceAutor:
                 nome=dados['nome'],
                 sobrenome=dados['sobrenome']
             )
-            ServiceAutor.save(novo_autor)
-            resposta = {
-                'status': 'sucesso',
-                'message': 'Registro adicionado com sucesso'
-            }
-            return resposta, 201  # created
-        else:
-            resposta = {
-                'status': 'falha',
-                'message': 'Autor já está cadastrado'
-            }
-        return resposta, 409
+        ServiceAutor.save(novo_autor)
+            return novo_autor    
 
     @staticmethod
     def get_all_autores():
-        pass
+        autores = Autor.query.all()
+        return autores
 
     @staticmethod
     def get_autor_by_id(id):
@@ -39,19 +30,29 @@ class ServiceAutor:
 
     @staticmethod
     def get_autor_by_nome(id):
-        pass
+        autores = Autor.query.filter_by(nome=nome).all()
+        return autores
 
     @staticmethod
     def get_autor_by_sobrenome(id):
-        pass
+        autores = Autor.query.filter_by(sobrenome=sobrenome).all()
+        return autores
 
     @staticmethod
     def update_autor(dados):
-        pass
+        autor = Autor.query.get(id)
+        if autor:
+            autor.nome = dados['nome']
+            autor.sobrenome = dados['sobrenome']
+            db.session.commit()
+            return autor
 
     @staticmethod
     def delete_autor(id):
-        pass
+        autor = Autor.query.get(id)
+        if autor:
+            delete(autor)
+            return autor
 
     def save(dados):
         db.session.add(dados)

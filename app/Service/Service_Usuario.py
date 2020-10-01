@@ -7,7 +7,7 @@ from app.Entidades.Usuario import Usuario
 class ServiceUsuario:
 
     @staticmethod
-    def save_user(dados):  # post
+    def save_usuario(dados):  # post
         usuario = Usuario.query.filter_by(username=dados['username']).first()
         if not usuario:
             novo_usuario = Usuario(
@@ -19,43 +19,21 @@ class ServiceUsuario:
                 data_criacao=datetime.utcnow()
             )
             ServiceUsuario.save(novo_usuario)
-            resposta = {
-                'status': 'sucesso',
-                'message': 'Registro adicionado com sucesso'
-            }
-            return resposta, 201  # created
-        else:
-            resposta = {
-                'status': 'falha',
-                'message': 'Usuário já está cadastrado'
-            }
-            return resposta, 409
+            return novo_usuario
 
     @staticmethod
-    def get_all_users():
+    def get_all_usuarios():
         usuarios = Usuario.query.all()
         return usuarios
 
     @staticmethod
-    def get_user_by_id(id):
+    def get_usuario_by_id(id):
         usuario = Usuario.query.filter_by(id=id).first()
-        if not usuario:
-            resposta = {
-                'status': 'falha',
-                'message': 'Usuário não está cadastrado'
-            }
-            return resposta, 404
         return usuario
 
     @staticmethod
-    def get_user_by_username(username):
+    def get_usuario_by_username(username):
         usuario = Usuario.query.filter_by(username=username).first()
-        if not usuario:
-            resposta = {
-                'status': 'falha',
-                'message': 'Usuário não está cadastrado'
-            }
-            return resposta, 404
         return usuario
 
     @staticmethod
@@ -68,32 +46,14 @@ class ServiceUsuario:
             usuario.senha = dados['senha']
             usuario.telefone = dados['telefone']
             db.session.commit()
-            resposta = {
-                'status': 'sucesso',
-                'message': 'Dados do usuário atualizados.'
-            }
-            return resposta, 200
-        resposta = {
-            'status': 'falha',
-            'message': 'Usuário não existe. Informe os dados corretamente.'
-        }
-        return resposta, 404
+            return usuario
 
     @staticmethod
-    def delete_user(id):
-        usuario = ServiceUsuario.get_user_by_id(id)
-        if usuario[1] == 200:
-            ServiceUsuario.delete(usuario[0])
-            resposta = {
-                'status': 'sucesso',
-                'message': 'Dados do usuário removidos.'
-            }
-            return resposta, 200
-        resposta = {
-            'status': 'falha',
-            'message': 'Usuário não existe. Informe os dados corretamente.'
-        }
-        return resposta, 404
+    def delete_usuario(id):
+        usuario = Usuario.query.get(id)
+        if usuario:
+            delete(usuario)
+            return usuario
 
     def save(dados):
         db.session.add(dados)

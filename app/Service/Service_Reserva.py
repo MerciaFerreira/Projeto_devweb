@@ -26,23 +26,7 @@ class ServiceReserva:
                 nova_reserva.usuario = usuario
                 nova_reserva.livro = livro
                 ServiceReserva.save(nova_reserva)
-                resposta = {
-                    'status': 'sucesso',
-                    'message': 'Reserva registrada no sistema.'
-                }
-                return resposta, 201
-        if not usuario:
-            resposta = {
-                'status': 'falha',
-                'message': 'Username inválido.'
-            }
-            return resposta, 201
-        if not livro:
-            resposta = {
-                'status': 'falha',
-                'message': 'ISBN não encontrado no sistema.'
-            }
-            return resposta, 201
+                return nova_reserva
 
     @staticmethod
     def get_all_reservas():
@@ -56,11 +40,17 @@ class ServiceReserva:
 
     @staticmethod
     def update_reserva(dados):
-        pass
+        reserva = Reserva.query.get(id)
+        if reserva:
+            reserva.data_vencimento = datetime.strptime(dados['data_vencimento'], '%Y/%m/%d')
+            return reserva
 
     @staticmethod
     def delete_reserva(id):
-        pass
+        reserva = Reserva.query.get(id)
+        if reserva:
+            delete(reserva)
+            return reserva
 
     def save(dados):
         db.session.add(dados)
