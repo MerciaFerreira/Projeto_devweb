@@ -106,7 +106,7 @@ if __name__ == '__main__':
         db.drop_all()
         db.create_all()
         print('[+] Database created')
-        [ServiceUsuario.save_user(usuario) for usuario in usuarios]
+        [ServiceUsuario.save_usuario(usuario) for usuario in usuarios]
         print('[+] Usuarios created')
         [ServiceAutor.save_autor(autor) for autor in autores]
         print('[+] Autores created')

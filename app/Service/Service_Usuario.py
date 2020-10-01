@@ -37,8 +37,8 @@ class ServiceUsuario:
         return usuario
 
     @staticmethod
-    def update_user(dados):  # patch, put
-        usuario = Usuario.query.filter_by(username=dados['username']).first()
+    def update_usuario(id, dados):  # patch, put
+        usuario = Usuario.query.get(id)
         if usuario:
             usuario.username = dados['username']
             usuario.nome = dados['nome']
@@ -52,7 +52,7 @@ class ServiceUsuario:
     def delete_usuario(id):
         usuario = Usuario.query.get(id)
         if usuario:
-            delete(usuario)
+            ServiceUsuario.delete(usuario)
             return usuario
 
     def save(dados):

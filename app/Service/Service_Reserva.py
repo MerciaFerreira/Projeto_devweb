@@ -10,7 +10,7 @@ class ServiceReserva:
 
     @staticmethod
     def save_reserva(dados):  # username, isbn
-        usuario = ServiceUsuario.get_user_by_username(dados['username'])
+        usuario = ServiceUsuario.get_usuario_by_username(dados['username'])
         livro = ServiceLivro.get_livro_by_isbn(dados['isbn'])
         if usuario and livro:
             reserva = Reserva.query.filter(
@@ -39,7 +39,7 @@ class ServiceReserva:
         return reserva
 
     @staticmethod
-    def update_reserva(dados):
+    def update_reserva(id, dados):
         reserva = Reserva.query.get(id)
         if reserva:
             reserva.data_vencimento = datetime.strptime(dados['data_vencimento'], '%Y/%m/%d')
@@ -49,7 +49,7 @@ class ServiceReserva:
     def delete_reserva(id):
         reserva = Reserva.query.get(id)
         if reserva:
-            delete(reserva)
+            ServiceReserva.delete(reserva)
             return reserva
 
     def save(dados):

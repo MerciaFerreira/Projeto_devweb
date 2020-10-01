@@ -29,6 +29,7 @@ class Livro(db.Model):
     )
     reservas = db.relationship(
         'Reserva',
+        cascade='all, delete',
         backref='livro',
         lazy=True
     )

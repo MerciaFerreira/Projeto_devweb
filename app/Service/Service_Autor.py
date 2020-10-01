@@ -51,7 +51,7 @@ class ServiceAutor:
     def delete_autor(id):
         autor = Autor.query.get(id)
         if autor:
-            delete(autor)
+            ServiceAutor.delete(autor)
             return autor
 
     def save(dados):

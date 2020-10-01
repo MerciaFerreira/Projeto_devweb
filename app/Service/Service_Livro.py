@@ -42,7 +42,7 @@ class ServiceLivro:
         return livros
 
     @staticmethod
-    def update_livros(id):
+    def update_livro(id, dados):
         livro = Livro.query.get(id)
         if livro:
             livro.isbn = dados['isbn']
@@ -53,10 +53,10 @@ class ServiceLivro:
             return livro
 
     @staticmethod
-    def delete_livros(id):
+    def delete_livro(id):
         livro = Livro.query.get(id)
         if livro:
-            delete(livro)
+            ServiceLivro.delete(livro)
             return livro
 
     def save(dados):

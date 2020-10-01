@@ -15,10 +15,13 @@ class Usuario(db.Model):
     telefone = db.Column(db.String(50), unique=True, nullable=False)
     data_criacao = db.Column(db.DateTime, nullable=False)
     reservas = db.relationship(
+
         'Reserva',
+        cascade='all, delete',
         backref='usuario',
         lazy=True
     )
+
 
     @property
     def senha(self):
