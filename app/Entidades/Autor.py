@@ -12,3 +12,12 @@ class Autor(db.Model):
     def __repr__(self):
         return f'nome: {self.nome} sobrenome: {self.sobrenome}.'
         
+
+class AutorSchema(ma.Schema):
+    class Meta:
+        model = Autor
+        fields = ('id', 'nome', 'sobrenome')
+
+
+autor_schema = AutorSchema()
+autores_schema = AutorSchema(many=True)

@@ -1,4 +1,6 @@
-from app import db
+from app import db, ma
+from .Autor import AutorSchema
+from .Reserva import ReservaSchema
 
 autores = db.Table(
     'autores',
@@ -31,5 +33,23 @@ class Livro(db.Model):
         lazy=True
     )
 
-    def __repr__(self):
-        return f'isbn: {self.isbn} titulo: {self.titulo} editora: {self.editora} quantidade: {self.quantidade} autores: {self.autores} reservas: {self.reservas}.'
+
+class LivroSchema(ma.Schema):
+    autores = ma.List(ma.Nested(AutorSchema))
+    reservas = ma.List(ma.Nested(ReservaSchema))
+
+    class Meta:
+        model = Livro
+        fields = (
+            'id',
+            'isbn',
+            'titulo',
+            'editora',
+            'quantidade',
+            'autores',
+            'reservas'
+        )
+
+
+livro_schema = LivroSchema()
+livros_schema = LivroSchema(many=True)

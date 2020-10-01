@@ -1,4 +1,4 @@
-from app import db
+from app import db, ma
 
 
 class Reserva(db.Model):
@@ -19,5 +19,18 @@ class Reserva(db.Model):
         nullable=False
     )
 
-    def __repr__(self):
-        return f'data_emprestimo: {self.data_emprestimo} data_vencimento: {self.data_vencimento} usuario_id: {self.usuario_id} livro_id: {self.livro_id}.'
+
+class ReservaSchema(ma.Schema):
+    class Meta:
+        model = Reserva
+        fields = (
+            'id',
+            'data_emprestimo',
+            'data_vencimento',
+            'usuario_id',
+            'livro_id'
+        )
+
+
+reserva_schema = ReservaSchema()
+reservas_schema = ReservaSchema(many=True)

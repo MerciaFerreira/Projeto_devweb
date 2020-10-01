@@ -1,4 +1,5 @@
 from app import db, bcrypt
+from .Reserva import ReservaSchema
 
 
 class Usuario(db.Model):
@@ -30,5 +31,23 @@ class Usuario(db.Model):
     def check_senha(self, senha):
         return bcrypt.check_password_hash(self.senha_hash, senha)
 
-    def __repr__(self):
-        return f' Usuário: {self.username}, {self.nome} {self.email} {self.telefone} {self.data_criacao} {self.reservas}'
+
+class UsuarioSchema(ma.Schema):
+    reservas = ma.List(ma.Nested(ReservaSchema))
+
+    class Meta:
+        model = Usuario
+        fields = (
+            'id',
+            'admin',
+            'username',
+            'nome',
+            'email',
+            'telefone',
+            'data_criacao',
+            'reservas'
+        )
+
+
+usuario_schema = UsuarioSchema()
+usuarios_schema = UsuarioSchema(many=True)
